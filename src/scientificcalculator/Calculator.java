@@ -58,6 +58,11 @@ public class Calculator extends javax.swing.JFrame {
         add = new java.awt.Button();
         percentage = new java.awt.Button();
         nine = new java.awt.Button();
+        tanInverse = new java.awt.Button();
+        sinInverse = new java.awt.Button();
+        cosInverse = new java.awt.Button();
+        tenPower = new java.awt.Button();
+        factorial = new java.awt.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 255, 153));
@@ -369,78 +374,127 @@ public class Calculator extends javax.swing.JFrame {
             }
         });
 
+        tanInverse.setActionCommand("tanInverse");
+        tanInverse.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tanInverse.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        tanInverse.setLabel("tan-1");
+        tanInverse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tanInverseActionPerformed(evt);
+            }
+        });
+
+        sinInverse.setActionCommand("sinInverse");
+        sinInverse.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        sinInverse.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        sinInverse.setLabel("sin-1");
+        sinInverse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sinInverseActionPerformed(evt);
+            }
+        });
+
+        cosInverse.setActionCommand("cosInverse");
+        cosInverse.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cosInverse.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        cosInverse.setLabel("cos-1");
+        cosInverse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cosInverseActionPerformed(evt);
+            }
+        });
+
+        tenPower.setActionCommand("tenPower");
+        tenPower.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tenPower.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        tenPower.setLabel("10^");
+        tenPower.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tenPowerActionPerformed(evt);
+            }
+        });
+
+        factorial.setActionCommand("factorial");
+        factorial.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        factorial.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        factorial.setLabel("n!");
+        factorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                factorialActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(display)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(power, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(sinInverse, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                            .addComponent(sin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(factorial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(ac14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cosInverse, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+                            .addComponent(ln, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tenPower, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(log, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(sin, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(ln, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cos, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(power, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tan, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(pi, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
-                                    .addComponent(ac14, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ac12, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-                                    .addComponent(root, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE))))
-                        .addGap(31, 31, 31)
+                            .addComponent(root, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ac12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tanInverse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(log, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(four, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                                .addComponent(four, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(five, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE))
+                                .addComponent(five, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(seven, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-                                    .addComponent(leftParenthesis, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE))
+                                    .addComponent(seven, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                                    .addComponent(leftParenthesis, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(rightParenthesis, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-                                    .addComponent(eight, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)))
+                                    .addComponent(rightParenthesis, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                                    .addComponent(eight, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(one, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                                .addComponent(one, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(two, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE))
+                                .addComponent(two, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(zero, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                                .addComponent(zero, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dot, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)))
+                                .addComponent(dot, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(nine, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
-                                    .addComponent(percentage, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
+                                    .addComponent(nine, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                                    .addComponent(percentage, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ac, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-                                    .addComponent(div, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)))
+                                    .addComponent(ac, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+                                    .addComponent(div, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(three, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-                                    .addComponent(six, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-                                    .addComponent(equal, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE))
+                                    .addComponent(three, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+                                    .addComponent(six, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+                                    .addComponent(equal, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE))
                                 .addGap(10, 10, 10)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(mul, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-                                    .addComponent(sub, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-                                    .addComponent(add, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)))))
-                    .addComponent(display))
+                                    .addComponent(mul, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+                                    .addComponent(sub, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+                                    .addComponent(add, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -477,39 +531,46 @@ public class Calculator extends javax.swing.JFrame {
                                     .addComponent(leftParenthesis, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(rightParenthesis, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(sin, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(log, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(cos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tanInverse, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cosInverse, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(seven, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(eight, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(ln, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(sinInverse, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(five, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(four, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(tan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(log, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(two, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(10, 10, 10)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(tenPower, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(root, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(ln, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(power, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(two, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(power, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(factorial, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(one, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(zero, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dot, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(root, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(ac14, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(ac12, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(163, Short.MAX_VALUE))
+                            .addComponent(dot, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ac12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ac14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
         pack();
@@ -575,31 +636,33 @@ public class Calculator extends javax.swing.JFrame {
         double value = sum(inputString);
         String outputString = Double.toString(value);
         String[] outputStringArr = outputString.split("\\.", 2);
-        if(Double.parseDouble(outputStringArr[1]) > 0) {
+        if (Double.parseDouble(outputStringArr[1]) > 0) {
             display.setText(outputString);
         } else {
             display.setText(outputStringArr[0]);
         }
-        
-        
+
 
     }//GEN-LAST:event_equalActionPerformed
 
     // calculation
     static double sum(String s) {
         try {
-            if (s.indexOf('+') != -1) {
+            if (s.lastIndexOf('+') != -1) {
                 String[] valueArr = s.split("[+]", 2);
                 return sum(valueArr[0]) + sum(valueArr[1]);
-            } else if (s.indexOf('-') != -1) {
+            } else if (s.lastIndexOf('-') != -1) {
                 String[] valueArr = s.split("-", 2);
                 return sum(valueArr[0]) - sum(valueArr[1]);
-            } else if (s.indexOf('×') != -1) {
-                String[] valueArr = s.split("×", 2);
-                return sum(valueArr[0]) * sum(valueArr[1]);
-            } else if (s.indexOf('÷') != -1) {
-                String[] valueArr = s.split("÷", 2);
-                return sum(valueArr[0]) / sum(valueArr[1]);
+            } else if (s.lastIndexOf('×') != -1) {
+                String last = s.substring(s.lastIndexOf("×") + 1);
+                String rest = s.substring(0, s.lastIndexOf("×"));
+                return sum(rest) * sum(last);
+            } else if (s.lastIndexOf('÷') != -1) {
+                //String[] valueArr = s.split("÷", 2);
+                String last = s.substring(s.lastIndexOf("÷") + 1);
+                String rest = s.substring(0, s.lastIndexOf("÷"));
+                return sum(rest) / sum(last);
             } else if (s.charAt(0) == 's' && s.charAt(2) == 'n') {
                 String[] valueArr = s.split("sin", 2);
                 return Math.sin(Math.toRadians(sum(valueArr[1])));
@@ -609,37 +672,64 @@ public class Calculator extends javax.swing.JFrame {
             } else if (s.charAt(0) == 't' && s.charAt(2) == 'n') {
                 String[] valueArr = s.split("tan", 2);
                 return Math.tan(Math.toRadians(sum(valueArr[1])));
+            } else if (s.charAt(0) == 'a' && s.charAt(3) == 's' && s.charAt(5) == 'n') {
+                String[] valueArr = s.split("arcsin", 2);
+                return Math.asin(sum(valueArr[1])) * (180 / Math.PI);
+            } else if (s.charAt(0) == 'a' && s.charAt(3) == 'c' && s.charAt(5) == 's') {
+                String[] valueArr = s.split("arccos", 2);
+                return Math.acos(sum(valueArr[1])) * (180 / Math.PI);
+            } else if (s.charAt(0) == 'a' && s.charAt(3) == 't' && s.charAt(5) == 'n') {
+                String[] valueArr = s.split("arctan", 2);
+                return Math.atan(sum(valueArr[1])) * (180 / Math.PI);
             } else if (s.charAt(0) == 'l' && s.charAt(2) == 'g') {
                 String[] valueArr = s.split("log", 2);
                 return Math.log10(sum(valueArr[1]));
-            }  else if (s.charAt(0) == 'l' && s.charAt(1) == 'n') {
+            } else if (s.charAt(0) == 'l' && s.charAt(1) == 'n') {
                 String[] valueArr = s.split("ln", 2);
                 return Math.log(sum(valueArr[1]));
-            } else if(s.indexOf('^') != -1) {
+            } else if (s.lastIndexOf("10^") != -1) {
+                String[] valueArr = s.split("\\^", 2);
+                return Math.pow(10, sum(valueArr[1]));
+            } else if (s.lastIndexOf('^') != -1) {
                 String[] valueArr = s.split("\\^", 2);
                 return Math.pow(sum(valueArr[0]), sum(valueArr[1]));
             } else if (s.charAt(0) == '√') {
                 String[] valueArr = s.split("√", 2);
                 return Math.sqrt(sum(valueArr[1]));
+            } else if (s.charAt(s.length() - 1) == '!') {
+                String[] valueArr = s.split("\\!", 2);
+                return factorial(sum(valueArr[0]));
+            } else if (s.charAt(s.length() - 1) == '%') {
+                String[] valueArr = s.split("\\%", 2);
+                return sum(valueArr[0])/100;
             } else {
-                if(s.indexOf('π') != -1) {
+                if (s.lastIndexOf('π') != -1) {
                     String[] valueArr = s.split("π", 2);
-                    if(valueArr[0].isEmpty() && valueArr[1].isEmpty()) {
+                    if (valueArr[0].isEmpty() && valueArr[1].isEmpty()) {
                         return Math.PI;
-                    } else if(valueArr[0].isEmpty()) {
+                    } else if (valueArr[0].isEmpty()) {
                         return Math.PI * sum(valueArr[1]);
-                    } else if(valueArr[1].isEmpty()) {
+                    } else if (valueArr[1].isEmpty()) {
                         return Math.PI * sum(valueArr[0]);
                     } else {
                         return Math.PI * sum(valueArr[0]) * sum(valueArr[1]);
                     }
                 }
             }
-            return Double.parseDouble(s);
+            return Double.parseDouble(s+"d");
 
         } catch (Exception e) {
             return 0;
         }
+    }
+
+    // factorial
+    static double factorial(double n) {
+        double total = 1;
+        for (int i = 1; i <= n; i++) {
+            total *= i;
+        }
+        return total;
     }
 
     private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dotActionPerformed
@@ -733,6 +823,31 @@ public class Calculator extends javax.swing.JFrame {
         display.setText(value);
     }//GEN-LAST:event_nineActionPerformed
 
+    private void tanInverseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tanInverseActionPerformed
+        String value = display.getText() + "arctan";
+        display.setText(value);
+    }//GEN-LAST:event_tanInverseActionPerformed
+
+    private void sinInverseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sinInverseActionPerformed
+        String value = display.getText() + "arcsin";
+        display.setText(value);
+    }//GEN-LAST:event_sinInverseActionPerformed
+
+    private void cosInverseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cosInverseActionPerformed
+        String value = display.getText() + "arccos";
+        display.setText(value);
+    }//GEN-LAST:event_cosInverseActionPerformed
+
+    private void tenPowerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tenPowerActionPerformed
+        String value = display.getText() + "10^";
+        display.setText(value);
+    }//GEN-LAST:event_tenPowerActionPerformed
+
+    private void factorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_factorialActionPerformed
+        String value = display.getText() + '!';
+        display.setText(value);
+    }//GEN-LAST:event_factorialActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -774,11 +889,13 @@ public class Calculator extends javax.swing.JFrame {
     private java.awt.Button ac14;
     private java.awt.Button add;
     private java.awt.Button cos;
+    private java.awt.Button cosInverse;
     private javax.swing.JTextField display;
     private java.awt.Button div;
     private java.awt.Button dot;
     private java.awt.Button eight;
     private java.awt.Button equal;
+    private java.awt.Button factorial;
     private java.awt.Button five;
     private java.awt.Button four;
     private java.awt.Button leftParenthesis;
@@ -794,9 +911,12 @@ public class Calculator extends javax.swing.JFrame {
     private java.awt.Button root;
     private java.awt.Button seven;
     private java.awt.Button sin;
+    private java.awt.Button sinInverse;
     private java.awt.Button six;
     private java.awt.Button sub;
     private java.awt.Button tan;
+    private java.awt.Button tanInverse;
+    private java.awt.Button tenPower;
     private java.awt.Button three;
     private java.awt.Button two;
     private java.awt.Button zero;
