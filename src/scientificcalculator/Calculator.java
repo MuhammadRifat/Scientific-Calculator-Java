@@ -63,6 +63,8 @@ public class Calculator extends javax.swing.JFrame {
         cosInverse = new java.awt.Button();
         tenPower = new java.awt.Button();
         factorial = new java.awt.Button();
+        deg = new javax.swing.JRadioButton();
+        rad = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 255, 153));
@@ -424,15 +426,36 @@ public class Calculator extends javax.swing.JFrame {
             }
         });
 
+        deg.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        deg.setText("Deg");
+        deg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                degActionPerformed(evt);
+            }
+        });
+
+        rad.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        rad.setText("Rad");
+        rad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(display)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(deg)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rad)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(display, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(power, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(sinInverse, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
@@ -502,7 +525,11 @@ public class Calculator extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(display, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deg)
+                    .addComponent(rad))
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -570,7 +597,7 @@ public class Calculator extends javax.swing.JFrame {
                             .addComponent(ac12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(pi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ac14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
 
         pack();
@@ -587,8 +614,9 @@ public class Calculator extends javax.swing.JFrame {
     }//GEN-LAST:event_threeActionPerformed
 
     private void tanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tanActionPerformed
-        String value = display.getText() + "tan";
+        String value = display.getText() + "tan(";
         display.setText(value);
+        display.requestFocus();
     }//GEN-LAST:event_tanActionPerformed
 
     private void eightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eightActionPerformed
@@ -633,7 +661,7 @@ public class Calculator extends javax.swing.JFrame {
 
     private void equalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equalActionPerformed
         String inputString = display.getText();
-        double value = sum(inputString);
+        double value = sum(inputString, deg.isSelected());
         String outputString = Double.toString(value);
         String[] outputStringArr = outputString.split("\\.", 2);
         if (Double.parseDouble(outputStringArr[1]) > 0) {
@@ -646,76 +674,102 @@ public class Calculator extends javax.swing.JFrame {
     }//GEN-LAST:event_equalActionPerformed
 
     // calculation
-    static double sum(String s) {
+    static double sum(String s, boolean isSelect) {
         try {
             if (s.lastIndexOf('+') != -1) {
                 String[] valueArr = s.split("[+]", 2);
-                return sum(valueArr[0]) + sum(valueArr[1]);
+                return sum(valueArr[0], isSelect) + sum(valueArr[1], isSelect);
             } else if (s.lastIndexOf('-') != -1) {
                 String[] valueArr = s.split("-", 2);
-                return sum(valueArr[0]) - sum(valueArr[1]);
+                return sum(valueArr[0], isSelect) - sum(valueArr[1], isSelect);
             } else if (s.lastIndexOf('×') != -1) {
                 String last = s.substring(s.lastIndexOf("×") + 1);
                 String rest = s.substring(0, s.lastIndexOf("×"));
-                return sum(rest) * sum(last);
+                return sum(rest, isSelect) * sum(last, isSelect);
             } else if (s.lastIndexOf('÷') != -1) {
                 //String[] valueArr = s.split("÷", 2);
                 String last = s.substring(s.lastIndexOf("÷") + 1);
                 String rest = s.substring(0, s.lastIndexOf("÷"));
-                return sum(rest) / sum(last);
+                return sum(rest, isSelect) / sum(last, isSelect);
             } else if (s.charAt(0) == 's' && s.charAt(2) == 'n') {
-                String[] valueArr = s.split("sin", 2);
-                return Math.sin(Math.toRadians(sum(valueArr[1])));
+                String[] valueArr = s.split("sin\\(", 2);
+                if(isSelect) {
+                    return Math.sin(Math.toRadians(sum(valueArr[1], isSelect)));
+                } else {
+                    return Math.sin(sum(valueArr[1], isSelect));
+                }
             } else if (s.charAt(0) == 'c' && s.charAt(2) == 's') {
                 String[] valueArr = s.split("cos", 2);
-                return Math.cos(Math.toRadians(sum(valueArr[1])));
+                if(isSelect) {
+                    return Math.cos(Math.toRadians(sum(valueArr[1], isSelect)));
+                } else {
+                    return Math.cos(sum(valueArr[1], isSelect));
+                }
             } else if (s.charAt(0) == 't' && s.charAt(2) == 'n') {
                 String[] valueArr = s.split("tan", 2);
-                return Math.tan(Math.toRadians(sum(valueArr[1])));
+                if(isSelect) {
+                    return Math.tan(Math.toRadians(sum(valueArr[1], isSelect)));
+                } else {
+                    return Math.tan(sum(valueArr[1], isSelect));
+                }
             } else if (s.charAt(0) == 'a' && s.charAt(3) == 's' && s.charAt(5) == 'n') {
                 String[] valueArr = s.split("arcsin", 2);
-                return Math.asin(sum(valueArr[1])) * (180 / Math.PI);
+                if(isSelect) {
+                    return Math.asin(sum(valueArr[1], isSelect)) * (180 / Math.PI);
+                } else {
+                    return Math.toRadians(Math.asin(sum(valueArr[1], isSelect)) * (180 / Math.PI));
+                }
             } else if (s.charAt(0) == 'a' && s.charAt(3) == 'c' && s.charAt(5) == 's') {
                 String[] valueArr = s.split("arccos", 2);
-                return Math.acos(sum(valueArr[1])) * (180 / Math.PI);
+                if(isSelect) {
+                    return Math.acos(sum(valueArr[1], isSelect)) * (180 / Math.PI);
+                } else {
+                    return Math.toRadians(Math.acos(sum(valueArr[1], isSelect)) * (180 / Math.PI));
+                }
             } else if (s.charAt(0) == 'a' && s.charAt(3) == 't' && s.charAt(5) == 'n') {
                 String[] valueArr = s.split("arctan", 2);
-                return Math.atan(sum(valueArr[1])) * (180 / Math.PI);
+                if(isSelect) {
+                    return Math.atan(sum(valueArr[1], isSelect)) * (180 / Math.PI);
+                } else {
+                    return Math.toRadians(Math.atan(sum(valueArr[1], isSelect)) * (180 / Math.PI));
+                }
             } else if (s.charAt(0) == 'l' && s.charAt(2) == 'g') {
                 String[] valueArr = s.split("log", 2);
-                return Math.log10(sum(valueArr[1]));
+                return Math.log10(sum(valueArr[1], isSelect));
             } else if (s.charAt(0) == 'l' && s.charAt(1) == 'n') {
                 String[] valueArr = s.split("ln", 2);
-                return Math.log(sum(valueArr[1]));
+                return Math.log(sum(valueArr[1], isSelect));
             } else if (s.lastIndexOf("10^") != -1) {
                 String[] valueArr = s.split("\\^", 2);
-                return Math.pow(10, sum(valueArr[1]));
+                return Math.pow(10, sum(valueArr[1], isSelect));
             } else if (s.lastIndexOf('^') != -1) {
                 String[] valueArr = s.split("\\^", 2);
-                return Math.pow(sum(valueArr[0]), sum(valueArr[1]));
+                return Math.pow(sum(valueArr[0], isSelect), sum(valueArr[1], isSelect));
             } else if (s.charAt(0) == '√') {
                 String[] valueArr = s.split("√", 2);
-                return Math.sqrt(sum(valueArr[1]));
+                return Math.sqrt(sum(valueArr[1], isSelect));
             } else if (s.charAt(s.length() - 1) == '!') {
                 String[] valueArr = s.split("\\!", 2);
-                return factorial(sum(valueArr[0]));
+                return factorial(sum(valueArr[0], isSelect));
             } else if (s.charAt(s.length() - 1) == '%') {
                 String[] valueArr = s.split("\\%", 2);
-                return sum(valueArr[0])/100;
+                return sum(valueArr[0], isSelect)/100;
             } else {
                 if (s.lastIndexOf('π') != -1) {
                     String[] valueArr = s.split("π", 2);
                     if (valueArr[0].isEmpty() && valueArr[1].isEmpty()) {
                         return Math.PI;
                     } else if (valueArr[0].isEmpty()) {
-                        return Math.PI * sum(valueArr[1]);
+                        return Math.PI * sum(valueArr[1], isSelect);
                     } else if (valueArr[1].isEmpty()) {
-                        return Math.PI * sum(valueArr[0]);
+                        return Math.PI * sum(valueArr[0], isSelect);
                     } else {
-                        return Math.PI * sum(valueArr[0]) * sum(valueArr[1]);
+                        return Math.PI * sum(valueArr[0], isSelect) * sum(valueArr[1], isSelect);
                     }
                 }
             }
+            s = s.replace("(", "");
+            s = s.replace(")", "");
             return Double.parseDouble(s+"d");
 
         } catch (Exception e) {
@@ -757,8 +811,9 @@ public class Calculator extends javax.swing.JFrame {
     }//GEN-LAST:event_ac12ActionPerformed
 
     private void cosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cosActionPerformed
-        String value = display.getText() + "cos";
+        String value = display.getText() + "cos(";
         display.setText(value);
+        display.requestFocus();
     }//GEN-LAST:event_cosActionPerformed
 
     private void ac14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ac14ActionPerformed
@@ -785,8 +840,9 @@ public class Calculator extends javax.swing.JFrame {
     }//GEN-LAST:event_acActionPerformed
 
     private void sinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sinActionPerformed
-        String value = display.getText() + "sin";
+        String value = display.getText() + "sin(";
         display.setText(value);
+        display.requestFocus();
     }//GEN-LAST:event_sinActionPerformed
 
     private void displayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayActionPerformed
@@ -824,18 +880,21 @@ public class Calculator extends javax.swing.JFrame {
     }//GEN-LAST:event_nineActionPerformed
 
     private void tanInverseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tanInverseActionPerformed
-        String value = display.getText() + "arctan";
+        String value = display.getText() + "arctan(";
         display.setText(value);
+        display.requestFocus();
     }//GEN-LAST:event_tanInverseActionPerformed
 
     private void sinInverseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sinInverseActionPerformed
-        String value = display.getText() + "arcsin";
+        String value = display.getText() + "arcsin(";
         display.setText(value);
+        display.requestFocus();
     }//GEN-LAST:event_sinInverseActionPerformed
 
     private void cosInverseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cosInverseActionPerformed
-        String value = display.getText() + "arccos";
+        String value = display.getText() + "arccos(";
         display.setText(value);
+        display.requestFocus();
     }//GEN-LAST:event_cosInverseActionPerformed
 
     private void tenPowerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tenPowerActionPerformed
@@ -847,6 +906,14 @@ public class Calculator extends javax.swing.JFrame {
         String value = display.getText() + '!';
         display.setText(value);
     }//GEN-LAST:event_factorialActionPerformed
+
+    private void degActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_degActionPerformed
+        rad.setSelected(false);
+    }//GEN-LAST:event_degActionPerformed
+
+    private void radActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radActionPerformed
+        deg.setSelected(false);
+    }//GEN-LAST:event_radActionPerformed
 
     /**
      * @param args the command line arguments
@@ -890,6 +957,7 @@ public class Calculator extends javax.swing.JFrame {
     private java.awt.Button add;
     private java.awt.Button cos;
     private java.awt.Button cosInverse;
+    private javax.swing.JRadioButton deg;
     private javax.swing.JTextField display;
     private java.awt.Button div;
     private java.awt.Button dot;
@@ -907,6 +975,7 @@ public class Calculator extends javax.swing.JFrame {
     private java.awt.Button percentage;
     private java.awt.Button pi;
     private java.awt.Button power;
+    private javax.swing.JRadioButton rad;
     private java.awt.Button rightParenthesis;
     private java.awt.Button root;
     private java.awt.Button seven;
