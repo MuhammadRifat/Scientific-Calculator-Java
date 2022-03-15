@@ -652,7 +652,12 @@ public class Calculator extends javax.swing.JFrame {
     // calculation
     static double sum(String s, boolean isSelect) {
         try {
-            if (s.lastIndexOf('+') != -1) {
+            if (s.contains("(") && s.contains(")") && s.charAt(0) != 's' && s.charAt(0) != 'c' && s.charAt(0) != 't') {
+                String data = s.substring(s.indexOf("(") + 1, s.indexOf(")"));
+                String[] arr = s.split("\\(" + data + "\\)", 2);
+                return sum(arr[0] + caculate(data) + arr[1], isSelect);
+            }
+            else if (s.lastIndexOf('+') != -1) {
                 String[] valueArr = s.split("[+]", 2);
                 return sum(valueArr[0], isSelect) + sum(valueArr[1], isSelect);
             } else if (s.lastIndexOf('-') != -1) {
@@ -669,42 +674,63 @@ public class Calculator extends javax.swing.JFrame {
                 return sum(rest, isSelect) / sum(last, isSelect);
             } else if (s.charAt(0) == 's' && s.charAt(2) == 'n') {
                 String[] valueArr = s.split("sin\\(", 2);
-                if(isSelect) {
+                String value = valueArr[1];
+                value = value.replace("(", "");
+                value = value.replace(")", "");
+                
+                if(value.equals("30") && isSelect) {
+                    return .5;
+                } else if (isSelect) {
                     return Math.sin(Math.toRadians(sum(valueArr[1], isSelect)));
                 } else {
                     return Math.sin(sum(valueArr[1], isSelect));
                 }
             } else if (s.charAt(0) == 'c' && s.charAt(2) == 's') {
-                String[] valueArr = s.split("cos", 2);
-                if(isSelect) {
+                String[] valueArr = s.split("cos\\(", 2);
+                String value = valueArr[1];
+                value = value.replace("(", "");
+                value = value.replace(")", "");
+                
+                if(value.equals("60") && isSelect) {
+                    return .5;
+                } else if(value.equals("90") && isSelect) {
+                    return 0;
+                } else if (isSelect) {
                     return Math.cos(Math.toRadians(sum(valueArr[1], isSelect)));
                 } else {
                     return Math.cos(sum(valueArr[1], isSelect));
                 }
             } else if (s.charAt(0) == 't' && s.charAt(2) == 'n') {
-                String[] valueArr = s.split("tan", 2);
-                if(isSelect) {
+                String[] valueArr = s.split("tan\\(", 2);
+                
+                String value = valueArr[1];
+                value = value.replace("(", "");
+                value = value.replace(")", "");
+                
+                if(value.equals("45") && isSelect) {
+                    return 1;
+                } else if (isSelect) {
                     return Math.tan(Math.toRadians(sum(valueArr[1], isSelect)));
                 } else {
                     return Math.tan(sum(valueArr[1], isSelect));
                 }
             } else if (s.charAt(0) == 'a' && s.charAt(3) == 's' && s.charAt(5) == 'n') {
                 String[] valueArr = s.split("arcsin", 2);
-                if(isSelect) {
+                if (isSelect) {
                     return Math.asin(sum(valueArr[1], isSelect)) * (180 / Math.PI);
                 } else {
                     return Math.toRadians(Math.asin(sum(valueArr[1], isSelect)) * (180 / Math.PI));
                 }
             } else if (s.charAt(0) == 'a' && s.charAt(3) == 'c' && s.charAt(5) == 's') {
                 String[] valueArr = s.split("arccos", 2);
-                if(isSelect) {
+                if (isSelect) {
                     return Math.acos(sum(valueArr[1], isSelect)) * (180 / Math.PI);
                 } else {
                     return Math.toRadians(Math.acos(sum(valueArr[1], isSelect)) * (180 / Math.PI));
                 }
             } else if (s.charAt(0) == 'a' && s.charAt(3) == 't' && s.charAt(5) == 'n') {
                 String[] valueArr = s.split("arctan", 2);
-                if(isSelect) {
+                if (isSelect) {
                     return Math.atan(sum(valueArr[1], isSelect)) * (180 / Math.PI);
                 } else {
                     return Math.toRadians(Math.atan(sum(valueArr[1], isSelect)) * (180 / Math.PI));
@@ -729,7 +755,7 @@ public class Calculator extends javax.swing.JFrame {
                 return factorial(sum(valueArr[0], isSelect));
             } else if (s.charAt(s.length() - 1) == '%') {
                 String[] valueArr = s.split("\\%", 2);
-                return sum(valueArr[0], isSelect)/100;
+                return sum(valueArr[0], isSelect) / 100;
             } else {
                 if (s.lastIndexOf('π') != -1) {
                     String[] valueArr = s.split("π", 2);
@@ -746,7 +772,7 @@ public class Calculator extends javax.swing.JFrame {
             }
             s = s.replace("(", "");
             s = s.replace(")", "");
-            return Double.parseDouble(s+"d");
+            return Double.parseDouble(s + "d");
 
         } catch (Exception e) {
             return 0;
@@ -760,6 +786,12 @@ public class Calculator extends javax.swing.JFrame {
             total *= i;
         }
         return total;
+    }
+
+    // calculation bracket string
+    static double caculate(String s) {
+        double value = sum(s, true);
+        return value;
     }
 
     private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dotActionPerformed
