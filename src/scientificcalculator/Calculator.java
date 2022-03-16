@@ -405,6 +405,7 @@ public class Calculator extends javax.swing.JFrame {
         });
 
         deg.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        deg.setSelected(true);
         deg.setText("Deg");
         deg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -637,13 +638,17 @@ public class Calculator extends javax.swing.JFrame {
 
     private void equalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equalActionPerformed
         String inputString = display.getText();
-        double value = sum(inputString, deg.isSelected());
-        String outputString = Double.toString(value);
-        String[] outputStringArr = outputString.split("\\.", 2);
-        if (Double.parseDouble(outputStringArr[1]) > 0) {
-            display.setText(outputString);
-        } else {
-            display.setText(outputStringArr[0]);
+        try {
+            double value = sum(inputString, deg.isSelected());
+            String outputString = Double.toString(value);
+            String[] outputStringArr = outputString.split("\\.", 2);
+            if (Double.parseDouble(outputStringArr[1]) > 0) {
+                display.setText(outputString);
+            } else {
+                display.setText(outputStringArr[0]);
+            }
+        } catch(Exception e) {
+            display.setText("Syntax Error");
         }
 
 
@@ -651,7 +656,6 @@ public class Calculator extends javax.swing.JFrame {
 
     // calculation
     static double sum(String s, boolean isSelect) {
-        try {
             if (s.contains("(") && s.contains(")") && s.charAt(0) != 's' && s.charAt(0) != 'c' && s.charAt(0) != 't') {
                 String data = s.substring(s.indexOf("(") + 1, s.indexOf(")"));
                 String[] arr = s.split("\\(" + data + "\\)", 2);
@@ -773,10 +777,6 @@ public class Calculator extends javax.swing.JFrame {
             s = s.replace("(", "");
             s = s.replace(")", "");
             return Double.parseDouble(s + "d");
-
-        } catch (Exception e) {
-            return 0;
-        }
     }
 
     // factorial
