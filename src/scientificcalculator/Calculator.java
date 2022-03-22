@@ -653,11 +653,17 @@ public class Calculator extends javax.swing.JFrame {
         try {
             double value = sum(inputString, deg.isSelected());
             String outputString = Double.toString(value);
-            String[] outputStringArr = outputString.split("\\.", 2);
-            if (Double.parseDouble(outputStringArr[1]) > 0) {
-                display.setText(outputString);
+            double diff = Math.abs(Math.round(value) - value);
+            if (diff < .00001) {
+                display.setText(Double.toString(Math.round(value)).split("\\.", 2)[0]);
             } else {
-                display.setText(outputStringArr[0]);
+                String[] outputStringArr = outputString.split("\\.", 2);
+                double fractionalValue = Double.parseDouble(outputStringArr[1]);
+                if (fractionalValue > 0) {
+                    display.setText(outputString);
+                } else {
+                    display.setText(outputStringArr[0]);
+                }
             }
         } catch (Exception e) {
             display.setText("Syntax Error");
