@@ -659,7 +659,7 @@ public class Calculator extends javax.swing.JFrame {
             } else {
                 display.setText(outputStringArr[0]);
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             display.setText("Syntax Error");
         }
 
@@ -668,127 +668,147 @@ public class Calculator extends javax.swing.JFrame {
 
     // calculation
     static double sum(String s, boolean isSelect) {
-            if (s.contains("(") && s.contains(")") && s.charAt(0) != 's' && s.charAt(0) != 'c' && s.charAt(0) != 't') {
-                String data = s.substring(s.indexOf("(") + 1, s.indexOf(")"));
-                String[] arr = s.split("\\(" + data + "\\)", 2);
-                return sum(arr[0] + caculate(data) + arr[1], isSelect);
+        if (s.contains("(") && s.contains(")") && s.charAt(0) != 's' && s.charAt(0) != 'c' && s.charAt(0) != 't' && s.charAt(0) != 'a') {
+
+            String data = s.substring(s.indexOf("(") + 1, s.indexOf(")"));
+            String[] arr1 = s.split("\\(", 2);
+            String[] arr2 = s.split("\\)", 2);
+            if (arr2[1].length() > 0 && arr1[0].length() > 0) {
+                char lastCharArr1 = arr1[0].charAt(arr1[0].length() - 1);
+                char firstCharArr2 = arr2[1].charAt(0);
+                if (lastCharArr1 != '+' && lastCharArr1 != '-' && lastCharArr1 != '×' && lastCharArr1 != '÷') {
+                    return sum(arr1[0] + "×" + caculate(data) + arr2[1], isSelect);
+                } else if (firstCharArr2 != '+' && firstCharArr2 != '-' && firstCharArr2 != '×' && firstCharArr2 != '÷') {
+                    return sum(arr1[0] + caculate(data) + "×" + arr2[1], isSelect);
+                }
+            } else if (arr2[1].length() > 0) {
+                char firstCharArr2 = arr2[1].charAt(0);
+                if (firstCharArr2 != '+' && firstCharArr2 != '-' && firstCharArr2 != '×' && firstCharArr2 != '÷') {
+                    return sum(arr1[0] + caculate(data) + "×" + arr2[1], isSelect);
+                }
+            } else if (arr1[0].length() > 0) {
+                char lastCharArr1 = arr1[0].charAt(arr1[0].length() - 1);
+                if (lastCharArr1 != '+' && lastCharArr1 != '-' && lastCharArr1 != '×' && lastCharArr1 != '÷') {
+                    return sum(arr1[0] + "×" + caculate(data) + arr2[1], isSelect);
+                }
             }
-            else if (s.lastIndexOf('+') != -1) {
-                String[] valueArr = s.split("[+]", 2);
-                return sum(valueArr[0], isSelect) + sum(valueArr[1], isSelect);
-            } else if (s.lastIndexOf('-') != -1) {
-                String[] valueArr = s.split("-", 2);
-                return sum(valueArr[0], isSelect) - sum(valueArr[1], isSelect);
-            } else if (s.lastIndexOf('×') != -1) {
-                String last = s.substring(s.lastIndexOf("×") + 1);
-                String rest = s.substring(0, s.lastIndexOf("×"));
-                return sum(rest, isSelect) * sum(last, isSelect);
-            } else if (s.lastIndexOf('÷') != -1) {
-                //String[] valueArr = s.split("÷", 2);
-                String last = s.substring(s.lastIndexOf("÷") + 1);
-                String rest = s.substring(0, s.lastIndexOf("÷"));
-                return sum(rest, isSelect) / sum(last, isSelect);
-            } else if (s.charAt(0) == 's' && s.charAt(2) == 'n') {
-                String[] valueArr = s.split("sin\\(", 2);
-                String value = valueArr[1];
-                value = value.replace("(", "");
-                value = value.replace(")", "");
-                
-                if(value.equals("30") && isSelect) {
-                    return .5;
-                } else if (isSelect) {
-                    return Math.sin(Math.toRadians(sum(valueArr[1], isSelect)));
-                } else {
-                    return Math.sin(sum(valueArr[1], isSelect));
-                }
-            } else if (s.charAt(0) == 'c' && s.charAt(2) == 's') {
-                String[] valueArr = s.split("cos\\(", 2);
-                String value = valueArr[1];
-                value = value.replace("(", "");
-                value = value.replace(")", "");
-                
-                if(value.equals("60") && isSelect) {
-                    return .5;
-                } else if(value.equals("90") && isSelect) {
-                    return 0;
-                } else if (isSelect) {
-                    return Math.cos(Math.toRadians(sum(valueArr[1], isSelect)));
-                } else {
-                    return Math.cos(sum(valueArr[1], isSelect));
-                }
-            } else if (s.charAt(0) == 't' && s.charAt(2) == 'n') {
-                String[] valueArr = s.split("tan\\(", 2);
-                
-                String value = valueArr[1];
-                value = value.replace("(", "");
-                value = value.replace(")", "");
-                
-                if(value.equals("45") && isSelect) {
-                    return 1;
-                } else if (isSelect) {
-                    return Math.tan(Math.toRadians(sum(valueArr[1], isSelect)));
-                } else {
-                    return Math.tan(sum(valueArr[1], isSelect));
-                }
-            } else if (s.charAt(0) == 'a' && s.charAt(3) == 's' && s.charAt(5) == 'n') {
-                String[] valueArr = s.split("arcsin", 2);
-                if (isSelect) {
-                    return Math.asin(sum(valueArr[1], isSelect)) * (180 / Math.PI);
-                } else {
-                    return Math.toRadians(Math.asin(sum(valueArr[1], isSelect)) * (180 / Math.PI));
-                }
-            } else if (s.charAt(0) == 'a' && s.charAt(3) == 'c' && s.charAt(5) == 's') {
-                String[] valueArr = s.split("arccos", 2);
-                if (isSelect) {
-                    return Math.acos(sum(valueArr[1], isSelect)) * (180 / Math.PI);
-                } else {
-                    return Math.toRadians(Math.acos(sum(valueArr[1], isSelect)) * (180 / Math.PI));
-                }
-            } else if (s.charAt(0) == 'a' && s.charAt(3) == 't' && s.charAt(5) == 'n') {
-                String[] valueArr = s.split("arctan", 2);
-                if (isSelect) {
-                    return Math.atan(sum(valueArr[1], isSelect)) * (180 / Math.PI);
-                } else {
-                    return Math.toRadians(Math.atan(sum(valueArr[1], isSelect)) * (180 / Math.PI));
-                }
-            } else if (s.charAt(0) == 'l' && s.charAt(2) == 'g') {
-                String[] valueArr = s.split("log", 2);
-                return Math.log10(sum(valueArr[1], isSelect));
-            } else if (s.charAt(0) == 'l' && s.charAt(1) == 'n') {
-                String[] valueArr = s.split("ln", 2);
-                return Math.log(sum(valueArr[1], isSelect));
-            } else if (s.lastIndexOf("10^") != -1) {
-                String[] valueArr = s.split("\\^", 2);
-                return Math.pow(10, sum(valueArr[1], isSelect));
-            } else if (s.lastIndexOf('^') != -1) {
-                String[] valueArr = s.split("\\^", 2);
-                return Math.pow(sum(valueArr[0], isSelect), sum(valueArr[1], isSelect));
-            } else if (s.charAt(0) == '√') {
-                String[] valueArr = s.split("√", 2);
-                return Math.sqrt(sum(valueArr[1], isSelect));
-            } else if (s.charAt(s.length() - 1) == '!') {
-                String[] valueArr = s.split("\\!", 2);
-                return factorial(sum(valueArr[0], isSelect));
-            } else if (s.charAt(s.length() - 1) == '%') {
-                String[] valueArr = s.split("\\%", 2);
-                return sum(valueArr[0], isSelect) / 100;
+            return sum(arr1[0] + caculate(data) + arr2[1], isSelect);
+        } else if (s.lastIndexOf('+') != -1) {
+            String[] valueArr = s.split("[+]", 2);
+            return sum(valueArr[0], isSelect) + sum(valueArr[1], isSelect);
+        } else if (s.lastIndexOf('-') != -1) {
+            String[] valueArr = s.split("-", 2);
+            return sum(valueArr[0], isSelect) - sum(valueArr[1], isSelect);
+        } else if (s.lastIndexOf('×') != -1) {
+            String last = s.substring(s.lastIndexOf("×") + 1);
+            String rest = s.substring(0, s.lastIndexOf("×"));
+            return sum(rest, isSelect) * sum(last, isSelect);
+        } else if (s.lastIndexOf('÷') != -1) {
+            //String[] valueArr = s.split("÷", 2);
+            String last = s.substring(s.lastIndexOf("÷") + 1);
+            String rest = s.substring(0, s.lastIndexOf("÷"));
+            return sum(rest, isSelect) / sum(last, isSelect);
+        } else if (s.charAt(0) == 's' && s.charAt(2) == 'n') {
+            String[] valueArr = s.split("sin\\(", 2);
+            String value = valueArr[1];
+            value = value.replace("(", "");
+            value = value.replace(")", "");
+
+            if (value.equals("30") && isSelect) {
+                return .5;
+            } else if (isSelect) {
+                return Math.sin(Math.toRadians(sum(valueArr[1], isSelect)));
             } else {
-                if (s.lastIndexOf('π') != -1) {
-                    String[] valueArr = s.split("π", 2);
-                    if (valueArr[0].isEmpty() && valueArr[1].isEmpty()) {
-                        return Math.PI;
-                    } else if (valueArr[0].isEmpty()) {
-                        return Math.PI * sum(valueArr[1], isSelect);
-                    } else if (valueArr[1].isEmpty()) {
-                        return Math.PI * sum(valueArr[0], isSelect);
-                    } else {
-                        return Math.PI * sum(valueArr[0], isSelect) * sum(valueArr[1], isSelect);
-                    }
+                return Math.sin(sum(valueArr[1], isSelect));
+            }
+        } else if (s.charAt(0) == 'c' && s.charAt(2) == 's') {
+            String[] valueArr = s.split("cos\\(", 2);
+            String value = valueArr[1];
+            value = value.replace("(", "");
+            value = value.replace(")", "");
+
+            if (value.equals("60") && isSelect) {
+                return .5;
+            } else if (value.equals("90") && isSelect) {
+                return 0;
+            } else if (isSelect) {
+                return Math.cos(Math.toRadians(sum(valueArr[1], isSelect)));
+            } else {
+                return Math.cos(sum(valueArr[1], isSelect));
+            }
+        } else if (s.charAt(0) == 't' && s.charAt(2) == 'n') {
+            String[] valueArr = s.split("tan\\(", 2);
+
+            String value = valueArr[1];
+            value = value.replace("(", "");
+            value = value.replace(")", "");
+
+            if (value.equals("45") && isSelect) {
+                return 1;
+            } else if (isSelect) {
+                return Math.tan(Math.toRadians(sum(valueArr[1], isSelect)));
+            } else {
+                return Math.tan(sum(valueArr[1], isSelect));
+            }
+        } else if (s.charAt(0) == 'a' && s.charAt(3) == 's' && s.charAt(5) == 'n') {
+            String[] valueArr = s.split("arcsin\\(", 2);
+            if (isSelect) {
+                return Math.asin(sum(valueArr[1], isSelect)) * (180 / Math.PI);
+            } else {
+                return Math.toRadians(Math.asin(sum(valueArr[1], isSelect)) * (180 / Math.PI));
+            }
+        } else if (s.charAt(0) == 'a' && s.charAt(3) == 'c' && s.charAt(5) == 's') {
+            String[] valueArr = s.split("arccos\\(", 2);
+            if (isSelect) {
+                return Math.acos(sum(valueArr[1], isSelect)) * (180 / Math.PI);
+            } else {
+                return Math.toRadians(Math.acos(sum(valueArr[1], isSelect)) * (180 / Math.PI));
+            }
+        } else if (s.charAt(0) == 'a' && s.charAt(3) == 't' && s.charAt(5) == 'n') {
+            String[] valueArr = s.split("arctan\\(", 2);
+            if (isSelect) {
+                return Math.atan(sum(valueArr[1], isSelect)) * (180 / Math.PI);
+            } else {
+                return Math.toRadians(Math.atan(sum(valueArr[1], isSelect)) * (180 / Math.PI));
+            }
+        } else if (s.charAt(0) == 'l' && s.charAt(2) == 'g') {
+            String[] valueArr = s.split("log", 2);
+            return Math.log10(sum(valueArr[1], isSelect));
+        } else if (s.charAt(0) == 'l' && s.charAt(1) == 'n') {
+            String[] valueArr = s.split("ln", 2);
+            return Math.log(sum(valueArr[1], isSelect));
+        } else if (s.lastIndexOf("10^") != -1) {
+            String[] valueArr = s.split("\\^", 2);
+            return Math.pow(10, sum(valueArr[1], isSelect));
+        } else if (s.lastIndexOf('^') != -1) {
+            String[] valueArr = s.split("\\^", 2);
+            return Math.pow(sum(valueArr[0], isSelect), sum(valueArr[1], isSelect));
+        } else if (s.charAt(0) == '√') {
+            String[] valueArr = s.split("√", 2);
+            return Math.sqrt(sum(valueArr[1], isSelect));
+        } else if (s.charAt(s.length() - 1) == '!') {
+            String[] valueArr = s.split("\\!", 2);
+            return factorial(sum(valueArr[0], isSelect));
+        } else if (s.charAt(s.length() - 1) == '%') {
+            String[] valueArr = s.split("\\%", 2);
+            return sum(valueArr[0], isSelect) / 100;
+        } else {
+            if (s.lastIndexOf('π') != -1) {
+                String[] valueArr = s.split("π", 2);
+                if (valueArr[0].isEmpty() && valueArr[1].isEmpty()) {
+                    return Math.PI;
+                } else if (valueArr[0].isEmpty()) {
+                    return Math.PI * sum(valueArr[1], isSelect);
+                } else if (valueArr[1].isEmpty()) {
+                    return Math.PI * sum(valueArr[0], isSelect);
+                } else {
+                    return Math.PI * sum(valueArr[0], isSelect) * sum(valueArr[1], isSelect);
                 }
             }
-            s = s.replace("(", "");
-            s = s.replace(")", "");
-            return Double.parseDouble(s + "d");
+        }
+        s = s.replace("(", "");
+        s = s.replace(")", "");
+        return Double.parseDouble(s + "d");
     }
 
     // factorial
